@@ -11,4 +11,8 @@ trait DVDDAO {
 
   def removeDvd(dvdTitle: String): DVD
 
+  def editDVD(dvdName: String, updatedDVD : DVD) : DVD
+
+  def searchDVDs(dvdName: String) : List[DVD]
+
 }
