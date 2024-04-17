@@ -20,10 +20,9 @@ class DVDView {
     io.print("3. Find DVD")
     io.print("4. Remove a DVD")
     io.print("5. View number of DVD")
-    io.print("6. Update DVD Details")
-    io.print("7. Exit")
+    io.print("6. Exit")
 
-    io.readInt("Please select an option:", 1, 7)
+    io.readInt("Please select an option:", 1, 6)
   }
 
   def getMovieInfo(): DVD = {
