@@ -5,5 +5,5 @@ case class DVD(    title: String,
                    mpaaRating: String,
                    directorName: String,
                    studio: String,
-                   userRatingOrNote: Option[String])
+                   userRatingOrNote: String)
 
