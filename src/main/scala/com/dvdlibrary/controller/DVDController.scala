@@ -2,41 +2,34 @@ package com.dvdlibrary.controller
 
 import com.dvdlibrary.dto.DVD
 import com.dvdlibrary.service.DVDService
-import com.dvdlibrary.ui.DVDView
-import com.softwaremill.macwire._
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation._
 
 @RestController
 @CrossOrigin
-@RequestMapping("/dvd")
-class DVDController(dvdService: DVDService) {
+@RequestMapping(Array("/dvd"))
+class DVDController @Autowired() (dvdService: DVDService) {
 
-  @GetMapping("/dvds")
+  @GetMapping(Array("/dvds"))
   def getAllDVDs(): List[DVD] =
     dvdService.getAllDVDs
 
 
-  @PostMapping("/add")
+  @PostMapping(Array("/add"))
   def addDVD(@RequestBody dvd: DVD): DVD =
     dvdService.addDVD(dvd.title, dvd)
 
-  @PutMapping("/edit/{dvdName}")
+  @PutMapping(Array("/edit/{dvdName}"))
   def editDVD(@PathVariable dvdName: String, @RequestBody dvd: DVD): DVD =
     dvdService.editDVD(dvdName, dvd)
 
-  @GetMapping("/{title}")
+  @GetMapping(Array("/{title}"))
   def getDVD(@PathVariable title: String): DVD =
     dvdService.getDVD(title)
 
-  @DeleteMapping("/{title}")
+  @DeleteMapping(Array("/{title}"))
   def removeDVD(@PathVariable title: String): Unit =
     dvdService.removeDVD(title)
 
 }
 
-
-// auto wiring dependencies using macwire similar to using @autowired annotation in java
-object ControllerWiring {
-  lazy val dvdService: DVDService = wire[DVDService]
-  lazy val dvdController: DVDController = wire[DVDController]
-}

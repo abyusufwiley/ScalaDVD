@@ -2,10 +2,11 @@ package com.dvdlibrary.service
 
 import com.dvdlibrary.dao.{DVDDAO, DVDDAOImpl, DVDPersistenceException}
 import com.dvdlibrary.dto.DVD
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class DVDService(dao: DVDDAOImpl) extends DVDServiceTrait {
+class DVDService @Autowired()(dao: DVDDAOImpl) extends DVDServiceTrait {
   @throws(classOf[DVDPersistenceException])
   override def addDVD(dvdTitle: String, dvd: DVD): DVD = {
     try {

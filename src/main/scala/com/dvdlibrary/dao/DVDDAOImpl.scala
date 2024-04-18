@@ -1,14 +1,16 @@
 package com.dvdlibrary.dao
 
 import com.dvdlibrary.dto.DVD
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.{JdbcTemplate, RowMapper}
 import org.springframework.stereotype.Repository
+
 import java.sql.ResultSet
 import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
 
 
 @Repository
-class DVDDAOImpl(var jdbcTemplate: JdbcTemplate) extends DVDDAO {
+class DVDDAOImpl @Autowired() (var jdbcTemplate: JdbcTemplate) extends DVDDAO {
 
   override def addDvd(dvdTitle: String, dvd: DVD): DVD = {
     val sql = "INSERT INTO DVDs.dvd (title, releaseDate, mpaaRating, directorName, studio, userRating) VALUES (?, ?, ?, ?, ?, ?)"
