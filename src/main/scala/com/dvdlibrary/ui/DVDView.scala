@@ -4,9 +4,7 @@ import com.dvdlibrary.dto.DVD
 
 import scala.io.StdIn
 
-class DVDView(var userIO: UserIO) {
-  private var io: UserIO = UserIOImpl()
-
+class DVDView(var io: UserIO) {
   def DisplayWelcomeBanner(): Unit = {
     io.print("Welcome to the DVD APP")
   }
@@ -33,8 +31,9 @@ class DVDView(var userIO: UserIO) {
     val UserRating = io.readString("Enter the User rating")
     DVD(title, MPAARating, ReleaseDate, DirectorName, Studio, UserRating)
   }
+
   def DiplayMovie(movie: DVD): Unit = {
-    if(movie != null){
+    if (movie != null) {
       io.print(movie.title)
       io.print(movie.mpaaRating)
       io.print(movie.releaseDate)
