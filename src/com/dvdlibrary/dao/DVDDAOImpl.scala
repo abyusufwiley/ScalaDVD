@@ -37,10 +37,28 @@ class DVDDAOImpl(var fileName: String) extends DVDDAO {
     removedDvd.getOrElse(throw new NoSuchElementException(s"No DVD found with title: $dvdTitle"))
   }
 
-  override def editDVD(dvdName: String, updatedDVD: DVD): DVD = ???
+  override def editDVD(dvdName: String, updatedDVD: DVD): DVD = {
+    loadDvds()
+    for (dvd <- dvdList.values) {
+      if (dvd.title == dvdName) {
+        val newTitle = if (updatedDVD.title.nonEmpty) updatedDVD.title else dvd.title
+        val newDirectorsName = if (updatedDVD.directorName.nonEmpty) updatedDVD.directorName else dvd.directorName
+        val newStudio = if (updatedDVD.studio.nonEmpty) updatedDVD.studio else dvd.studio
+        val newMpaaRating = if (updatedDVD.mpaaRating.nonEmpty) updatedDVD.mpaaRating else dvd.mpaaRating
+        val newUserRating = if (updatedDVD.userRatingOrNote.nonEmpty) updatedDVD.userRatingOrNote else dvd.userRatingOrNote
+        val newReleaseDate = if (updatedDVD.releaseDate.nonEmpty) updatedDVD.releaseDate else dvd.releaseDate
+
+        // Update the DVD with non-empty fields
+        dvdList(dvdName) = DVD(newTitle, newReleaseDate, newMpaaRating, newDirectorsName, newStudio, newUserRating)
+      }
+    }
+    writeDvds()
+    updatedDVD
+  }
 
 
   override def searchDVDs(dvdName: String): List[DVD] = {
+    loadDvds()
     val results: ListBuffer[DVD] = ListBuffer()
     for (dvd <- dvdList.values) {
       if (dvd.title.contains(dvdName))
