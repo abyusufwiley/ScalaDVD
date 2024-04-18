@@ -3,7 +3,7 @@ package com.dvdlibrary.controller
 import com.dvdlibrary.dto.DVD
 import com.dvdlibrary.service.DVDService
 import com.dvdlibrary.ui.DVDView
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation._
 
 import scala.util.{Failure, Success, Try}
 
