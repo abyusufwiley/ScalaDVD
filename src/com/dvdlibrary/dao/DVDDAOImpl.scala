@@ -90,7 +90,7 @@ class DVDDAOImpl(var fileName: String) extends DVDDAO {
 
   }
 
-   def loadDvds(): Unit = {
+   private def loadDvds(): Unit = {
     try {
       val file = Source.fromFile(DVD_FILE)
       for (line <- file.getLines()) {
@@ -102,7 +102,7 @@ class DVDDAOImpl(var fileName: String) extends DVDDAO {
     }
   }
 
-   def writeDvds(): Unit = {
+   private def writeDvds(): Unit = {
     var out: PrintWriter = null
     try {
       out = new PrintWriter(new FileWriter(DVD_FILE))
