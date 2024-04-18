@@ -3,78 +3,40 @@ package com.dvdlibrary.controller
 import com.dvdlibrary.dto.DVD
 import com.dvdlibrary.service.DVDService
 import com.dvdlibrary.ui.DVDView
+import com.softwaremill.macwire._
 import org.springframework.web.bind.annotation._
-
-import scala.util.{Failure, Success, Try}
 
 @RestController
 @CrossOrigin
 @RequestMapping("/dvd")
-class DVDController(DVDView: DVDView, DVDService: DVDService) {
-  def run(): Unit = {
-    var running = true
-    while (running) {
-      val menuSelection = getMenuSelection
-      menuSelection match {
-        case 1 => displayAllDVDs()
-        case 2 => addDVD()
-        case 3 => viewDVD()
-        case 4 => removeDVD()
-        case 5 => totalDVDs()
-        case 6 => running = false
-        case _ => DVDView.displayErrorSelection()
-      }
-    }
-    DVDView.displayExit()
-  }
+class DVDController(dvdService: DVDService) {
 
-  private def getMenuSelection: Int = {
-    DVDView.DisplayWelcomeBanner()
-    DVDView.DisplayMenu()
-  }
+  @GetMapping("/dvds")
+  def getAllDVDs(): List[DVD] =
+    dvdService.getAllDVDs
 
-  private def displayAllDVDs(): Unit = {
 
-    DVDView.displayDisplayAllBanner()
-    val result: Try[List[DVD]] = Try(DVDService.getAllDVDs)
+  @PostMapping("/add")
+  def addDVD(@RequestBody dvd: DVD): DVD =
+    dvdService.addDVD(dvd.title, dvd)
 
-    result match {
-      case Success(dvdList) => DVDView.DisplayDVDList(dvdList)
-      case Failure(exception) => throw new Exception("Error finding list", exception)
-    }
-  }
+  @PutMapping("/edit/{id}")
+  def editDVD(@PathVariable id: Int, @RequestBody dvd: DVD): DVD =
+    dvd
 
-  private def addDVD(): Unit = {
-    DVDView.displayCreateDVDBanner()
-    val result: Try[DVD] = Try(DVDView.getMovieInfo())
+  @GetMapping("/{title}")
+  def getDVD(@PathVariable title: String): DVD =
+    dvdService.getDVD(title)
 
-    result match{
-      case Success(newDVD) =>
-        DVDService.addDVD(newDVD.title, newDVD)
-        DVDView.displayCreateSuccessBanner()
-      case Failure(exception) => throw new Exception("Error adding DVD", exception)
-    }
-  }
+  @DeleteMapping("/{title}")
+  def removeDVD(@PathVariable title: String): Unit =
+    dvdService.removeDVD(title)
 
-  private def viewDVD(): Unit = {
-    val DVDTitle = DVDView.getTitle()
-    val DVDs = DVDService.getDVD(DVDTitle)
-    DVDView.getMovieInfo()
-  }
+}
 
-  private def removeDVD(): Unit = {
-    val title = DVDView.getTitle()
-    val removedDVD = DVDService.removeDVD(title)
 
-    if (removedDVD != null) {
-      DVDView.displaySuccess(s"DVD '$title' removed successfully.")
-    } else {
-      DVDView.displayFailure(s"Failed to remove DVD '$title'.")
-    }
-  }
-
-  private def totalDVDs(): Unit = {
-    val total = DVDService.getAllDVDs.length
-    DVDView.displayTotalDVDs(total)
-  }
+// auto wiring dependencies using macwire similar to using @autowired annotation in java
+object ControllerWiring {
+  lazy val dvdService: DVDService = wire[DVDService]
+  lazy val dvdController: DVDController = wire[DVDController]
 }

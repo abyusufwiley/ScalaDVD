@@ -11,4 +11,6 @@ libraryDependencies ++= Seq(
   "org.springframework.boot" % "spring-boot-starter-test" % "2.5.0" % "test",
   "org.springframework.boot" % "spring-boot-starter-data-jpa" % "2.5.0",
   "com.h2database" % "h2" % "1.4.200" % "runtime",
+  "com.softwaremill.macwire" %% "macros" % "2.3.7" % Provided,
+  "com.softwaremill.macwire" %% "util" % "2.3.7"
 )
