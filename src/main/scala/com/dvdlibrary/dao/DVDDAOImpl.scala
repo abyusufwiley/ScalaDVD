@@ -1,7 +1,7 @@
 package com.dvdlibrary.dao
 
 import com.dvdlibrary.dto.DVD
-
+import org.springframework.jdbc.core.JdbcTemplate
 import scala.collection.mutable
 import java.io._
 import java.io.IOException
@@ -10,7 +10,7 @@ import scala.io.Source
 import org.springframework.stereotype.Repository
 
 @Repository
-class DVDDAOImpl(var fileName: String) extends DVDDAO {
+class DVDDAOImpl(var jdbcTemplate: JdbcTemplate) extends DVDDAO {
   private val dvdList: mutable.Map[String, DVD] = mutable.Map()
   private val DVD_FILE: String = "dvd.txt"
   private val DELIMITER: String = "::"
