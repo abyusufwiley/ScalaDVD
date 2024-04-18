@@ -3,9 +3,11 @@ package com.dvdlibrary.controller
 import com.dvdlibrary.dto.DVD
 import com.dvdlibrary.service.DVDService
 import com.dvdlibrary.ui.DVDView
+import org.springframework.web.bind.annotation.RestController
 
 import scala.util.{Failure, Success, Try}
 
+@RestController
 class DVDController(DVDView: DVDView, DVDService: DVDService) {
   def run(): Unit = {
     var running = true

@@ -7,7 +7,9 @@ import java.io._
 import java.io.IOException
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
+import org.springframework.stereotype.Repository
 
+@Repository
 class DVDDAOImpl(var fileName: String) extends DVDDAO {
   private val dvdList: mutable.Map[String, DVD] = mutable.Map()
   private val DVD_FILE: String = "dvd.txt"
