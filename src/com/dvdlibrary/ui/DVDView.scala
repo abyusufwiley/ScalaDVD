@@ -2,6 +2,8 @@ package com.dvdlibrary.ui
 
 import com.dvdlibrary.dto.DVD
 
+import scala.io.StdIn
+
 class DVDView(var userIO: UserIO) {
   private var io: UserIO = UserIOImpl()
 
@@ -49,7 +51,7 @@ class DVDView(var userIO: UserIO) {
     io.readString("Please hit enter to continue.")
   }
 
-  def displayCreateStudentBanner(): Unit = {
+  def displayCreateDVDBanner(): Unit = {
     io.print("=== Create new entry ===")
   }
 
@@ -61,14 +63,35 @@ class DVDView(var userIO: UserIO) {
     io.print("=== Display All movies ===")
   }
 
-  def displayDisplayStudentBanner(): Unit = {
+  def displayDisplayDVDBanner(): Unit = {
     io.print("=== Display movie ===")
   }
 
-  def displayRemoveStudentBanner(): Unit = {
+  def displayRemoveDVDBanner(): Unit = {
     io.print("=== Remove Address ===")
   }
 
+  def displayErrorSelection(): Unit = {
+    io.print("=== Please Select a valid option ===")
+  }
 
+  def displayExit(): Unit = {
+    io.print("=== GOODBYE ===")
+  }
 
+  def getTitle(): String = {
+    io.readString("Please enter the DVD title: ")
+  }
+
+  def displayFailure(message: String): Unit = {
+    io.print(s"Failure: $message")
+  }
+
+  def displaySuccess(message: String): Unit = {
+    io.print(s"Success: $message")
+  }
+
+  def displayTotalDVDs(total: Int): Unit = {
+    io.print(s"Total number of DVDs: $total")
+  }
 }

@@ -98,7 +98,7 @@ class DVDDAOImpl(var fileName: String) extends DVDDAO {
         dvdList += dvd.title -> dvd
       }
     } catch {
-      case IOException => throw new IOException("Could not loadd dvds from file")
+      case IOException => throw new IOException("Could not load dvds from file")
     }
   }
 
