@@ -1,122 +1,60 @@
 package com.dvdlibrary.dao
 
 import com.dvdlibrary.dto.DVD
-import org.springframework.jdbc.core.JdbcTemplate
-import scala.collection.mutable
-import java.io._
-import java.io.IOException
-import scala.collection.mutable.ListBuffer
-import scala.io.Source
+import org.springframework.jdbc.core.{JdbcTemplate, RowMapper}
 import org.springframework.stereotype.Repository
+import java.sql.ResultSet
+import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
+
 
 @Repository
 class DVDDAOImpl(var jdbcTemplate: JdbcTemplate) extends DVDDAO {
-  private val dvdList: mutable.Map[String, DVD] = mutable.Map()
-  private val DVD_FILE: String = "dvd.txt"
-  private val DELIMITER: String = "::"
 
   override def addDvd(dvdTitle: String, dvd: DVD): DVD = {
-    loadDvds()
-    val newDvd: DVD = dvdList.put(dvdTitle, dvd).orNull
-    writeDvds()
-    newDvd
+    val sql = "INSERT INTO DVDs.dvd (title, releaseDate, mpaaRating, directorName, studio, userRating) VALUES (?, ?, ?, ?, ?, ?)"
+    jdbcTemplate.update(sql, dvd.title, dvd.releaseDate, dvd.mpaaRating, dvd.directorName, dvd.studio, dvd.userRatingOrNote)
+    dvd
   }
 
   override def getAllDvds: List[DVD] = {
-    loadDvds()
-    dvdList.values.toList
+    val sql = "SELECT * FROM DVDs.dvd"
+    jdbcTemplate.query(sql, mapResultSetToDVDRowMapper).toList
   }
 
   override def getDvd(dvdTitle: String): DVD = {
-    loadDvds()
-    dvdList.getOrElse(dvdTitle, throw new NoSuchElementException(s"No DVD found with title: $dvdTitle"))
+    val sql = "SELECT * FROM DVDs.dvd WHERE title = ?"
+    jdbcTemplate.queryForObject(sql, classOf[DVD], dvdTitle)
   }
 
   override def removeDvd(dvdTitle: String): DVD = {
-    loadDvds()
-    val removedDvd: Option[DVD] = dvdList.remove(dvdTitle)
-    writeDvds()
-    removedDvd.getOrElse(throw new NoSuchElementException(s"No DVD found with title: $dvdTitle"))
+    val sql = "DELETE FROM DVDs.dvd WHERE title = ?"
+    val dvd = getDvd(dvdTitle)
+    jdbcTemplate.update(sql, dvdTitle)
+    dvd
   }
 
-  override def editDVD(dvdName: String, updatedDVD: DVD): DVD = {
-    loadDvds()
-    for (dvd <- dvdList.values) {
-      if (dvd.title == dvdName) {
-        val newTitle = if (updatedDVD.title.nonEmpty) updatedDVD.title else dvd.title
-        val newDirectorsName = if (updatedDVD.directorName.nonEmpty) updatedDVD.directorName else dvd.directorName
-        val newStudio = if (updatedDVD.studio.nonEmpty) updatedDVD.studio else dvd.studio
-        val newMpaaRating = if (updatedDVD.mpaaRating.nonEmpty) updatedDVD.mpaaRating else dvd.mpaaRating
-        val newUserRating = if (updatedDVD.userRatingOrNote.nonEmpty) updatedDVD.userRatingOrNote else dvd.userRatingOrNote
-        val newReleaseDate = if (updatedDVD.releaseDate.nonEmpty) updatedDVD.releaseDate else dvd.releaseDate
-
-        // Update the DVD with non-empty fields
-        dvdList(dvdName) = DVD(newTitle, newReleaseDate, newMpaaRating, newDirectorsName, newStudio, newUserRating)
-      }
-    }
-    writeDvds()
+  override def editDVD(dvdTitle: String, updatedDVD: DVD): DVD = {
+    val sql = "UPDATE DVDs.dvd SET title = ?, releaseDate = ?, mpaaRating = ?, directorName = ?, studio = ?, userRating = ? WHERE title = ?"
+    jdbcTemplate.update(sql, updatedDVD.title, updatedDVD.releaseDate, updatedDVD.mpaaRating, updatedDVD.directorName, updatedDVD.studio, updatedDVD.userRatingOrNote, dvdTitle)
     updatedDVD
   }
 
-
-  override def searchDVDs(dvdName: String): List[DVD] = {
-    loadDvds()
-    val results: ListBuffer[DVD] = ListBuffer()
-    for (dvd <- dvdList.values) {
-      if (dvd.title.contains(dvdName))
-        results += dvd
-    }
-    results.toList
+  override def searchDVDs(dvdTitle: String): List[DVD] = {
+    val sql = "SELECT * FROM DVDs.dvd WHERE title LIKE ?"
+    jdbcTemplate.query(sql, mapResultSetToDVDRowMapper, "%" + dvdTitle + "%").toList
   }
 
-  private def marShallData(dvd: DVD): String = {
-    var dvdAsText: String = ""
-    dvdAsText += dvd.title + DELIMITER
-    dvdAsText += dvd.studio + DELIMITER
-    dvdAsText += dvd.mpaaRating + DELIMITER
-    dvdAsText += dvd.releaseDate + DELIMITER
-    dvdAsText += dvd.directorName + DELIMITER
-    dvdAsText += dvd.userRatingOrNote + DELIMITER
-    dvdAsText
-  }
-
-  private def unmarshallData(dvdAsText: String): DVD = {
-    val fields = dvdAsText.split(DELIMITER)
-    val title = fields(0)
-    val studio = fields(1)
-    val mpaaRating = fields(2)
-    val releaseDate = fields(3)
-    val directorName = fields(4)
-    val userRatingOrNote = fields(5)
-    DVD(title = title, releaseDate = releaseDate, mpaaRating = mpaaRating, directorName = directorName, studio = studio, userRatingOrNote = userRatingOrNote)
-
-  }
-
-   private def loadDvds(): Unit = {
-    try {
-      val file = Source.fromFile(DVD_FILE)
-      for (line <- file.getLines()) {
-        val dvd = unmarshallData(line)
-        dvdList += dvd.title -> dvd
-      }
-    } catch {
-      case IOException => throw new IOException("Could not load dvds from file")
+  private val mapResultSetToDVDRowMapper = new RowMapper[DVD] {
+    override def mapRow(rs: ResultSet, rowNum: Int): DVD = {
+      DVD(
+        title = rs.getString("title"),
+        releaseDate = rs.getString("releaseDate"),
+        mpaaRating = rs.getString("mpaaRating"),
+        directorName = rs.getString("directorName"),
+        studio = rs.getString("studio"),
+        userRatingOrNote = rs.getString("userRating")
+      )
     }
-  }
-
-   private def writeDvds(): Unit = {
-    var out: PrintWriter = null
-    try {
-      out = new PrintWriter(new FileWriter(DVD_FILE))
-    } catch {
-      case IOException => throw new IOException("Could not write dvds from file")
-    }
-    for (dvd <- dvdList.values) {
-      val dvdAsText = marShallData(dvd)
-      out.println(dvdAsText)
-      out.flush()
-    }
-    out.close()
   }
 }
 
