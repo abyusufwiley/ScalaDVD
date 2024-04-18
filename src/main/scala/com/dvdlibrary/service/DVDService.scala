@@ -1,27 +1,49 @@
 package com.dvdlibrary.service
 
-import com.dvdlibrary.dao.{DVDDAO, DVDDAOImpl}
+import com.dvdlibrary.dao.{DVDDAO, DVDDAOImpl, DVDPersistenceException}
 import com.dvdlibrary.dto.DVD
 import org.springframework.stereotype.Service
 
 @Service
 class DVDService (dao : DVDDAOImpl) extends DVDServiceTrait {
-
+  @throws(classOf[DVDPersistenceException])
   override def addDVD(dvdTitle: String, dvd: DVD): DVD = {
-    val addedDvd = dao.addDvd(dvdTitle, dvd)
-    addedDvd
+    try {
+      val addedDvd = dao.addDvd(dvdTitle, dvd)
+      addedDvd
+    } catch {
+      case e: DVDPersistenceException =>
+        throw new DVDPersistenceException(s"Failed to add DVD: ${e.getMessage}", e)
+    }
   }
 
+  @throws(classOf[DVDPersistenceException])
   override def getAllDVDs: List[DVD] = {
-    dao.getAllDvds
+    try {
+      dao.getAllDvds
+    } catch {
+      case e: DVDPersistenceException =>
+        throw new DVDPersistenceException(s"Failed to retrieve all DVDs: ${e.getMessage}", e)
+    }
   }
 
+  @throws(classOf[DVDPersistenceException])
   override def getDVD(dvdTitle: String): DVD = {
-    dao.getDvd(dvdTitle)
+    try {
+      dao.getDvd(dvdTitle)
+    } catch {
+      case e: DVDPersistenceException =>
+        throw new DVDPersistenceException(s"No DVD found with title: $dvdTitle: ${e.getMessage}", e)
+    }
   }
 
+  @throws(classOf[DVDPersistenceException])
   override def removeDVD(dvdTitle: String): DVD = {
-    val dvdToRemove = dao.removeDvd(dvdTitle)
-    dvdToRemove
+    try {
+      dao.removeDvd(dvdTitle)
+    } catch {
+      case e: DVDPersistenceException =>
+        throw new DVDPersistenceException(s"Failed to remove DVD: $dvdTitle: ${e.getMessage}", e)
+    }
   }
 }
