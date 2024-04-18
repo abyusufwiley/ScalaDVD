@@ -20,9 +20,9 @@ class DVDController(dvdService: DVDService) {
   def addDVD(@RequestBody dvd: DVD): DVD =
     dvdService.addDVD(dvd.title, dvd)
 
-  @PutMapping("/edit/{id}")
-  def editDVD(@PathVariable id: Int, @RequestBody dvd: DVD): DVD =
-    dvd
+  @PutMapping("/edit/{dvdName}")
+  def editDVD(@PathVariable dvdName: String, @RequestBody dvd: DVD): DVD =
+    dvdService.editDVD(dvdName, dvd)
 
   @GetMapping("/{title}")
   def getDVD(@PathVariable title: String): DVD =

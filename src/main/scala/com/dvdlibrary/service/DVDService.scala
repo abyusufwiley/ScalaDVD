@@ -5,7 +5,7 @@ import com.dvdlibrary.dto.DVD
 import org.springframework.stereotype.Service
 
 @Service
-class DVDService (dao : DVDDAOImpl) extends DVDServiceTrait {
+class DVDService(dao: DVDDAOImpl) extends DVDServiceTrait {
   @throws(classOf[DVDPersistenceException])
   override def addDVD(dvdTitle: String, dvd: DVD): DVD = {
     try {
@@ -46,4 +46,16 @@ class DVDService (dao : DVDDAOImpl) extends DVDServiceTrait {
         throw new DVDPersistenceException(s"Failed to remove DVD: $dvdTitle: ${e.getMessage}", e)
     }
   }
+
+  @throws(classOf[DVDPersistenceException])
+  override def editDVD(dvdTitle: String, updatedDVD: DVD): DVD =
+    try {
+      this.getDVD(dvdTitle)
+      dao.editDVD(dvdTitle, updatedDVD)
+    }
+    catch {
+      case e: DVDPersistenceException =>
+        throw new DVDPersistenceException(s"No DVD found with title: $dvdTitle: ${e.getMessage}", e)
+
+    }
 }
