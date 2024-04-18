@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController
 import scala.util.{Failure, Success, Try}
 
 @RestController
+@CrossOrigin
+@RequestMapping("/dvd")
 class DVDController(DVDView: DVDView, DVDService: DVDService) {
   def run(): Unit = {
     var running = true
