@@ -2,11 +2,8 @@ package com.dvdlibrary.ui
 
 import com.dvdlibrary.dto.DVD
 
-class DVDView {
+class DVDView(var userIO: UserIO) {
   private var io: UserIO = UserIOImpl()
-  def DVDView(userIO: UserIO): Unit = {
-    this.io = io
-  }
 
   def DisplayWelcomeBanner(): Unit = {
     io.print("Welcome to the DVD APP")
