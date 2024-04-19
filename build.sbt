@@ -13,8 +13,6 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.0
 libraryDependencies ++= Seq(
   "com.mysql" % "mysql-connector-j" % "8.0.33"
 )
-libraryDependencies += "com.h2database" % "h2" % "1.4.192"
-libraryDependencies += "org.springframework" % "spring-jdbc" % "5.3.14"
 
 
 

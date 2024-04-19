@@ -40,7 +40,6 @@
     <orderEntry type="library" name="sbt: com.google.j2objc:j2objc-annotations:2.8:jar" level="project" />
     <orderEntry type="library" name="sbt: com.google.protobuf:protobuf-java:3.21.9:jar" level="project" />
     <orderEntry type="library" name="sbt: com.googlecode.usc:jdbcdslog:1.0.6.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: com.h2database:h2:1.4.192:jar" level="project" />
     <orderEntry type="library" name="sbt: com.mysql:mysql-connector-j:8.0.33:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: com.shapesecurity:salvation2:3.0.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.thoughtworks.paranamer:paranamer:2.8:jar" level="project" />
@@ -189,11 +188,22 @@
     <orderEntry type="library" name="sbt: org.slf4j:jcl-over-slf4j:2.0.12:jar" level="project" />
     <orderEntry type="library" name="sbt: org.slf4j:jul-to-slf4j:2.0.12:jar" level="project" />
     <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:2.0.12:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.springframework:spring-beans:5.3.14:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.springframework:spring-core:5.3.14:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.springframework:spring-jcl:5.3.14:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.springframework:spring-jdbc:5.3.14:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.springframework:spring-tx:5.3.14:jar" level="project" />
     <orderEntry type="library" name="sbt: tyrex:tyrex:1.0.1:jar" level="project" />
+    <orderEntry type="module-library" scope="TEST">
+      <library name="JUnit5.8.1">
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.8.1/junit-jupiter-5.8.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.8.1/junit-jupiter-api-5.8.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.8.1/junit-platform-commons-1.8.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.8.1/junit-jupiter-params-5.8.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.8.1/junit-jupiter-engine-5.8.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.8.1/junit-platform-engine-1.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,0 +1,10 @@
+Schindler's List::Steven Spielberg::R::Universal Pictures::1993-12-15::8.9::
+The Shawshank Redemption::Frank Darabont::R::Castle Rock Entertainment::1994-10-14::9.3::
+The Dark Knight::Christopher Nolan::PG-13::Warner Bros.::2008-07-18::9.0::
+The Lord of the Rings: The Return of the King::Peter Jackson::PG-13::New Line Cinema::2003-12-17::8.9::
+Forrest Gump::Robert Zemeckis::PG-13::Paramount Pictures::1994-07-06::8.8::
+The Godfather::Francis Ford Coppola::R::Paramount Pictures::1972-03-24::9.2::
+The Lord of the Rings: The Fellowship of the Ring::Peter Jackson::PG-13::New Line Cinema::2001-12-19::8.8::
+Pulp Fiction::Quentin Tarantino::R::Miramax Films::1994-10-14::8.9::
+Fight Club::David Fincher::R::20th Century Fox::1999-10-15::8.8::
+Inception::Christopher Nolan::PG-13::Warner Bros.::2010-07-16::8.7::

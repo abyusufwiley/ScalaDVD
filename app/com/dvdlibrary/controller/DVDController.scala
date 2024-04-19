@@ -1,4 +1,5 @@
 package com.dvdlibrary.controller
+
 import com.dvdlibrary.dto.DVD
 import com.dvdlibrary.service.DVDService
 
@@ -12,21 +13,21 @@ import play.api.libs.json.Json
 class DVDController @Inject()(dvdService: DVDService, cc: ControllerComponents) extends AbstractController(cc) {
 
   def getAllDVDs: Action[AnyContent] = Action {
-    print("we are here")
     val dvds = dvdService.getAllDVDs
     Ok(Json.toJson(dvds))
   }
 
   def addDVD: Action[DVD] = Action(parse.json[DVD]) { request =>
     val dvd = request.body
+    println(dvd)
     dvdService.addDVD(dvd.title, dvd)
-    Created
+    Created("DVD created")
   }
 
   def editDVD(title: String): Action[DVD] = Action(parse.json[DVD]) { request =>
     val dvd = request.body
     dvdService.editDVD(title, dvd)
-    Ok
+    Ok(s"DVD with title $title edited")
   }
 
   def getDVD(title: String): Action[AnyContent] = Action {
@@ -36,6 +37,6 @@ class DVDController @Inject()(dvdService: DVDService, cc: ControllerComponents) 
 
   def removeDVD(title: String): Action[AnyContent] = Action {
     dvdService.removeDVD(title)
-    NoContent
+    Ok(s"DVD with title $title deleted")
   }
 }
