@@ -1,0 +1,11 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# DVD Routes
+GET     /dvds                   com.dvdlibrary.controller.DVDController.getAllDVDs
+POST    /dvds/add               com.dvdlibrary.controller.DVDController.addDVD
+PUT     /dvds/edit/:title       com.dvdlibrary.controller.DVDController.editDVD(title: String)
+GET     /dvds/:title            com.dvdlibrary.controller.DVDController.getDVD(title: String)
+DELETE  /dvds/:title            com.dvdlibrary.controller.DVDController.removeDVD(title: String)

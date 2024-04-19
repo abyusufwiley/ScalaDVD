@@ -1,14 +1,25 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.13"
-lazy val root = (project in file("."))
-  .settings(
-    name := "ScalaDVD"
-  )
+name := """ScalaDVD"""
+organization := "com.dvdlibrary"
 
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+scalaVersion := "2.13.13"
+
+libraryDependencies += guice
+libraryDependencies += jdbc
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.0" % Test
 libraryDependencies ++= Seq(
-  "org.springframework.boot" % "spring-boot-devtools" % "2.5.0" % "runtime",
-  "org.springframework.boot" % "spring-boot-starter-web" % "2.5.0",
-  "org.springframework.boot" % "spring-boot-starter-test" % "2.5.0" % "test",
-  "org.springframework.boot" % "spring-boot-starter-data-jpa" % "2.5.0",
-  "com.h2database" % "h2" % "1.4.200" % "runtime",
+  "com.mysql" % "mysql-connector-j" % "8.0.33"
 )
+libraryDependencies += "com.h2database" % "h2" % "1.4.192"
+libraryDependencies += "org.springframework" % "spring-jdbc" % "5.3.14"
+
+
+
+// Adds additional packages into Twirl
+//TwirlKeys.templateImports += "com.dvdlibrary.controllers._"
+
+// Adds additional packages into conf/routes
+// play.sbt.routes.RoutesKeys.routesImport += "com.dvdlibrary.binders._"

@@ -1,12 +1,4 @@
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/util_2.13/2.3.7/util_2.13-2.3.7.pom
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1.pom
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/macros_2.13/2.3.7/macros_2.13-2.3.7.pom
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/util_2.13/2.3.7/util_2.13-2.3.7.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/macros_2.13/2.3.7/macros_2.13-2.3.7.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/macros_2.13/2.3.7/macros_2.13-2.3.7-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/util_2.13/2.3.7/util_2.13-2.3.7-sources.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/common/tagging_2.13/2.2.1/tagging_2.13-2.2.1-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/util_2.13/2.3.7/util_2.13-2.3.7-javadoc.jar
-[debug] downloaded https://repo1.maven.org/maven2/com/softwaremill/macwire/macros_2.13/2.3.7/macros_2.13-2.3.7-javadoc.jar
+[debug] downloaded https://repo1.maven.org/maven2/com/h2database/h2/1.4.192/h2-1.4.192.pom
+[debug] downloaded https://repo1.maven.org/maven2/com/h2database/h2/1.4.192/h2-1.4.192.jar
+[debug] downloaded https://repo1.maven.org/maven2/com/h2database/h2/1.4.192/h2-1.4.192-sources.jar
+[debug] downloaded https://repo1.maven.org/maven2/com/h2database/h2/1.4.192/h2-1.4.192-javadoc.jar

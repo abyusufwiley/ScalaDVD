@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="ScalaDVD,scaladvd_4990,untitled" />
+    <profile name="sbt 1" modules="scaladvd_5434" />
+    <profile name="sbt 2" modules="ScalaDVD">
+      <option name="deprecationWarnings" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <parameters>
+        <parameter value="-encoding" />
+        <parameter value="utf8" />
+      </parameters>
+    </profile>
   </component>
 </project>
